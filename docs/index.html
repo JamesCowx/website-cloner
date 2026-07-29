@@ -3,364 +3,572 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Website Cloner — Clone any website to local files</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+<title>Website Cloner — Clone Any Website to Local Files | Free Desktop App</title>
+<meta name="description" content="Website Cloner is a free desktop GUI tool that downloads any website into a local static copy. Clone HTML, CSS, JS, images, fonts and more with one click. Windows, macOS, Linux.">
+<meta name="keywords" content="website cloner, clone website, download website, offline website, website downloader, static site generator, web scraper, website backup, site ripper, offline browser">
+<meta name="author" content="Website Cloner">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://jamescowx.github.io/website-cloner/">
+
+<meta property="og:title" content="Website Cloner — Clone Any Website to Local Files">
+<meta property="og:description" content="Free desktop app to clone any website into an offline static copy. Full GUI, multi-threaded downloads, URL rewriting. No Python required.">
+<meta property="og:url" content="https://jamescowx.github.io/website-cloner/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Website Cloner">
+<meta property="og:image" content="https://jamescowx.github.io/website-cloner/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Website Cloner — Clone Any Website to Local Files">
+<meta name="twitter:description" content="Free desktop app to clone any website into an offline static copy. Full GUI, multi-threaded downloads, URL rewriting.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0f'/><text x='50' y='68' text-anchor='middle' font-family='monospace' font-size='48' font-weight='bold' fill='%236366f1'>C</text></svg>">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Website Cloner",
+  "description": "Clone any website into a local static copy with a full GUI",
+  "operatingSystem": "Windows, macOS, Linux",
+  "applicationCategory": "DeveloperApplication",
+  "downloadUrl": "https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe",
+  "author": { "@type": "Person", "name": "JamesCowx" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "softwareVersion": "3.0.0",
+  "datePublished": "2026-07-29"
+}
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --surf: #191a23;
-    --bdr: #2a2d3d;
+    --bg: #06060a;
+    --bg2: #0d0d16;
+    --surf: #141420;
+    --surf2: #1a1b2a;
+    --bdr: #252636;
     --acc: #6366f1;
     --acc2: #818cf8;
-    --fg: #c8ccd8;
-    --fgb: #e4e6f0;
-    --fgd: #6b7084;
+    --acc3: #4f46e5;
+    --fg: #b0b4c8;
+    --fgb: #e2e4f0;
+    --fgd: #6a6e82;
     --green: #22c55e;
+    --green2: #16a34a;
     --red: #ef4444;
     --orange: #f59e0b;
     --cyan: #06b6d4;
+    --purple: #a855f7;
+    --pink: #ec4899;
+    --radius: 12px;
   }
 
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--fg);
-    font-family: 'Inter', -apple-system, sans-serif;
-    line-height: 1.6;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* ── Background gradient mesh ── */
+  .bg-glow {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  }
+  .bg-glow::before, .bg-glow::after {
+    content: ''; position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: 0.15;
+  }
+  .bg-glow::before {
+    width: 600px; height: 600px;
+    background: var(--acc);
+    top: -200px; left: -100px;
+    animation: float1 20s ease-in-out infinite;
+  }
+  .bg-glow::after {
+    width: 500px; height: 500px;
+    background: var(--purple);
+    bottom: -200px; right: -100px;
+    animation: float2 25s ease-in-out infinite;
+  }
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, 60px) scale(1.1); }
+    66% { transform: translate(-40px, -40px) scale(0.9); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-80px, -100px) scale(1.2); }
+  }
+
+  .content { position: relative; z-index: 1; }
 
   /* ── Navigation ── */
   nav {
-    background: var(--surf);
-    border-bottom: 1px solid var(--bdr);
-    padding: 0 24px;
-    position: sticky; top: 0; z-index: 100;
-    backdrop-filter: blur(12px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(10,10,18,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background .3s;
   }
   nav .inner {
-    max-width: 1100px; margin: 0 auto;
+    max-width: 1120px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
+    height: 58px; padding: 0 24px;
   }
-  .logo { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; color: var(--fgb); }
-  .logo .bracket { color: var(--fgd); }
-  .logo .name { color: var(--acc); }
-  nav a { color: var(--fgd); text-decoration: none; font-size: 14px; margin-left: 24px; transition: color .15s; }
-  nav a:hover { color: var(--fgb); }
-  .btn-nav {
-    background: var(--acc); color: #fff !important;
-    padding: 8px 18px; border-radius: 6px; font-weight: 500;
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px; font-weight: 600;
+    color: var(--fgb); letter-spacing: -0.5px;
+    text-decoration: none; display: flex; align-items: center; gap: 2px;
   }
-  .btn-nav:hover { background: var(--acc2) !important; }
+  .logo .b { color: var(--fgd); }
+  .logo .n { color: var(--acc); }
+  .nav-links { display: flex; gap: 6px; align-items: center; }
+  .nav-links a {
+    color: var(--fgd); text-decoration: none;
+    font-size: 13.5px; padding: 7px 14px; border-radius: 6px;
+    transition: all .2s; font-weight: 500;
+  }
+  .nav-links a:hover { color: var(--fgb); background: rgba(255,255,255,0.05); }
+  .nav-dl {
+    background: var(--acc) !important; color: #fff !important;
+    font-weight: 600 !important;
+  }
+  .nav-dl:hover { background: var(--acc2) !important; }
 
   /* ── Hero ── */
   .hero {
-    max-width: 1100px; margin: 0 auto;
-    padding: 80px 24px 60px;
-    text-align: center;
+    max-width: 900px; margin: 0 auto;
+    padding: 140px 24px 70px; text-align: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(99,102,241,0.1); color: var(--acc);
+    border: 1px solid rgba(99,102,241,0.2);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500; margin-bottom: 24px;
+  }
+  .badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
   .hero h1 {
-    font-size: 48px; font-weight: 800; color: var(--fgb);
-    letter-spacing: -0.5px; line-height: 1.1;
+    font-size: clamp(36px, 5.5vw, 58px); font-weight: 900;
+    line-height: 1.08; letter-spacing: -1px;
+    color: var(--fgb);
   }
-  .hero h1 .hl { color: var(--acc); }
+  .hero h1 .grad {
+    background: linear-gradient(135deg, var(--acc) 0%, var(--purple) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .hero p {
-    font-size: 18px; color: var(--fgd); margin: 16px 0 32px;
-    max-width: 600px; margin-left: auto; margin-right: auto;
+    font-size: 18px; color: var(--fgd); margin: 20px 0 36px;
+    max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.6;
   }
   .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 28px; border-radius: 8px;
+    padding: 14px 30px; border-radius: 10px;
     font-size: 15px; font-weight: 600;
-    text-decoration: none; cursor: pointer;
-    transition: all .15s;
-    border: none;
+    text-decoration: none; transition: all .2s;
+    border: none; cursor: pointer;
+    white-space: nowrap;
   }
-  .btn-primary { background: var(--acc); color: #fff; }
-  .btn-primary:hover { background: var(--acc2); transform: translateY(-1px); }
-  .btn-outline { background: transparent; color: var(--fg); border: 1px solid var(--bdr); }
-  .btn-outline:hover { border-color: var(--acc); color: var(--fgb); }
+  .btn-pri {
+    background: linear-gradient(135deg, var(--acc) 0%, var(--acc3) 100%);
+    color: #fff; box-shadow: 0 4px 20px rgba(99,102,241,0.35);
+  }
+  .btn-pri:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.5);
+  }
+  .btn-sec {
+    background: rgba(255,255,255,0.04); color: var(--fg);
+    border: 1px solid var(--bdr);
+  }
+  .btn-sec:hover { border-color: var(--acc); color: var(--fgb); background: rgba(255,255,255,0.06); }
+  .hero-stats { display: flex; gap: 32px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-size: 28px; font-weight: 800; color: var(--fgb);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-stat .lbl { font-size: 12px; color: var(--fgd); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-  /* ── Demo terminal ── */
+  /* ── Terminal Demo ── */
+  .demo-wrap {
+    max-width: 750px; margin: 0 auto 100px; padding: 0 24px;
+  }
   .demo {
-    max-width: 700px; margin: 0 auto 80px;
     background: var(--bg2); border: 1px solid var(--bdr);
-    border-radius: 10px; overflow: hidden;
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   }
   .demo-bar {
-    background: var(--surf); padding: 10px 16px;
+    background: var(--surf); padding: 12px 18px;
     display: flex; gap: 8px; align-items: center;
   }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot:nth-child(1) { background: var(--red); }
-  .dot:nth-child(2) { background: var(--orange); }
-  .dot:nth-child(3) { background: var(--green); }
+  .demo-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .demo-bar .dot:nth-child(1) { background: var(--red); }
+  .demo-bar .dot:nth-child(2) { background: var(--orange); }
+  .demo-bar .dot:nth-child(3) { background: var(--green); }
   .demo-body {
-    padding: 20px;
+    padding: 22px 24px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px; color: var(--fg);
+    font-size: 13px; line-height: 1.8;
   }
-  .demo-body .cmd { color: var(--acc); }
-  .demo-body .arg { color: var(--cyan); }
-  .demo-body .out { color: var(--fgd); }
+  .demo-body .c1 { color: var(--acc); }
+  .demo-body .c2 { color: var(--cyan); }
+  .demo-body .c3 { color: var(--fgd); }
+  .demo-body .c4 { color: var(--green); }
+  .blink { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-  /* ── Features Grid ── */
+  /* ── Sections ── */
   .section {
-    max-width: 1100px; margin: 0 auto;
-    padding: 0 24px 80px;
+    max-width: 1120px; margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .section-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--acc); font-weight: 700; text-align: center; margin-bottom: 12px;
   }
   .section h2 {
-    font-size: 28px; font-weight: 700; color: var(--fgb);
-    text-align: center; margin-bottom: 40px;
+    font-size: 34px; font-weight: 800; color: var(--fgb);
+    text-align: center; margin-bottom: 12px; letter-spacing: -0.5px;
   }
+  .section .subtitle {
+    text-align: center; color: var(--fgd); font-size: 16px;
+    margin-bottom: 48px; max-width: 500px; margin-left: auto; margin-right: auto;
+  }
+
+  /* ── Features grid ── */
   .features {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
   }
   .card {
     background: var(--surf); border: 1px solid var(--bdr);
-    border-radius: 10px; padding: 24px;
+    border-radius: var(--radius); padding: 28px 24px;
+    transition: border-color .2s, transform .2s;
   }
-  .card .icon { font-size: 24px; margin-bottom: 10px; }
-  .card h3 { font-size: 16px; color: var(--fgb); margin-bottom: 6px; }
-  .card p { font-size: 14px; color: var(--fgd); }
+  .card:hover {
+    border-color: rgba(99,102,241,0.3);
+    transform: translateY(-2px);
+  }
+  .card .icon { font-size: 28px; margin-bottom: 14px; }
+  .card h3 { font-size: 17px; color: var(--fgb); margin-bottom: 6px; font-weight: 700; }
+  .card p { font-size: 14px; color: var(--fgd); line-height: 1.55; }
 
   /* ── Use Cases ── */
   .usecases {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px; margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
   }
   .usecase {
     background: var(--surf); border: 1px solid var(--bdr);
-    border-radius: 12px; padding: 28px;
-    text-align: center;
+    border-radius: 14px; padding: 32px 24px; text-align: center;
+    transition: border-color .2s;
   }
-  .usecase .icon { font-size: 36px; margin-bottom: 12px; }
-  .usecase h3 { font-size: 18px; color: var(--fgb); margin-bottom: 8px; }
-  .usecase p { font-size: 14px; color: var(--fgd); }
+  .usecase:hover { border-color: rgba(99,102,241,0.3); }
+  .usecase .icon { font-size: 40px; margin-bottom: 14px; display: block; }
+  .usecase h3 { font-size: 18px; color: var(--fgb); margin-bottom: 8px; font-weight: 700; }
+  .usecase p { font-size: 14px; color: var(--fgd); line-height: 1.55; }
 
   /* ── Steps ── */
   .steps {
-    display: flex; gap: 16px;
-    overflow-x: auto; padding-bottom: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 800px) {
+    .steps { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px) {
+    .steps { grid-template-columns: 1fr; }
   }
   .step {
     background: var(--surf); border: 1px solid var(--bdr);
-    border-radius: 12px; padding: 28px 24px;
-    min-width: 240px; flex: 1; text-align: center;
+    border-radius: var(--radius); padding: 30px 20px; text-align: center;
+    transition: border-color .2s;
   }
+  .step:hover { border-color: rgba(99,102,241,0.3); }
   .step .num {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--acc); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 16px;
-    margin: 0 auto 12px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--acc), var(--acc3));
+    color: #fff; display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 17px; margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
   }
-  .step h3 { font-size: 16px; color: var(--fgb); margin-bottom: 6px; }
-  .step p { font-size: 13px; color: var(--fgd); }
+  .step h3 { font-size: 16px; color: var(--fgb); margin-bottom: 6px; font-weight: 700; }
+  .step p { font-size: 13px; color: var(--fgd); line-height: 1.5; }
 
-  /* ── Download CTA ── */
+  /* ── CTA ── */
   .cta {
-    background: linear-gradient(135deg, var(--surf), var(--bg2));
-    border: 1px solid var(--bdr);
-    border-radius: 16px;
-    max-width: 700px; margin: 0 auto;
-    padding: 40px; text-align: center;
-    margin-bottom: 80px;
+    max-width: 640px; margin: 0 auto 100px; padding: 0 24px;
   }
-  .cta h2 { font-size: 24px; color: var(--fgb); margin-bottom: 8px; }
-  .cta p { color: var(--fgd); margin-bottom: 24px; font-size: 15px; }
-  .cta-info { font-size: 12px; color: var(--fgd); margin-top: 12px; }
+  .cta-card {
+    background: linear-gradient(155deg, var(--surf) 0%, var(--bg2) 100%);
+    border: 1px solid var(--bdr); border-radius: 18px;
+    padding: 48px 36px; text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .cta-card h2 { font-size: 26px; color: var(--fgb); margin-bottom: 8px; font-weight: 800; }
+  .cta-card p { color: var(--fgd); margin-bottom: 28px; font-size: 15px; }
+  .cta-card .info {
+    font-size: 12px; color: var(--fgd); margin-top: 14px;
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .cta-card .info span { display: flex; align-items: center; gap: 4px; }
 
   /* ── Footer ── */
   footer {
     border-top: 1px solid var(--bdr);
-    padding: 24px; text-align: center;
-    font-size: 13px; color: var(--fgd);
+    padding: 32px 24px; text-align: center; font-size: 13px; color: var(--fgd);
   }
-  footer a { color: var(--acc); text-decoration: none; }
+  footer .links { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; flex-wrap: wrap; }
+  footer a { color: var(--acc); text-decoration: none; font-weight: 500; }
   footer a:hover { text-decoration: underline; }
 
-  /* ── Responsive ── */
-  @media (max-width: 640px) {
-    .hero h1 { font-size: 32px; }
-    .hero p { font-size: 16px; }
-    .steps { flex-direction: column; }
+  .sep { border: none; border-top: 1px solid var(--bdr); max-width: 1120px; margin: 0 auto; }
+
+  /* ── Mobile nav ── */
+  @media (max-width: 700px) {
+    .nav-links a:not(.nav-dl) { display: none; }
+    .hero { padding: 120px 20px 50px; }
+    .hero-btns { flex-direction: column; align-items: center; }
   }
 </style>
 </head>
 <body>
 
+<div class="bg-glow"></div>
+<div class="content">
+
 <nav>
   <div class="inner">
-    <div class="logo"><span class="bracket">[</span><span class="name">Cloner</span><span class="bracket">]</span></div>
-    <div>
+    <a href="/website-cloner/" class="logo" aria-label="Website Cloner Home">
+      <span class="b">[</span><span class="n">Cloner</span><span class="b">]</span>
+    </a>
+    <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#usecases">Use Cases</a>
-      <a href="#quickstart">Quick Start</a>
-      <a href="https://github.com/JamesCowx/website-cloner" class="btn-nav" target="_blank">GitHub</a>
+      <a href="https://github.com/JamesCowx/website-cloner">GitHub</a>
+      <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe" class="nav-dl">Download</a>
     </div>
   </div>
 </nav>
 
-<section class="hero">
-  <h1>Clone any website<br>into a <span class="hl">local copy</span></h1>
-  <p>Download HTML, CSS, JavaScript, images, fonts, and more. Full GUI, zero configuration, works offline.</p>
+<!-- ================ HERO ================ -->
+<header class="hero">
+  <div class="badge"><span class="dot"></span> v3.0.0 is now available</div>
+  <h1>Clone any website<br>into a <span class="grad">local copy</span></h1>
+  <p>A free desktop app that downloads entire websites for offline browsing. Paste a URL, hit Clone, and get a fully functional static site with all assets.</p>
   <div class="hero-btns">
-    <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe" class="btn btn-primary">
-      &#x2B07; Download for Windows
+    <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe" class="btn btn-pri" aria-label="Download Website Cloner for Windows">
+      &#x2B07; Download for Windows &mdash; 12.8 MB
     </a>
-    <a href="https://github.com/JamesCowx/website-cloner" class="btn btn-outline" target="_blank">
-      View Source
+    <a href="https://github.com/JamesCowx/website-cloner" class="btn btn-sec" target="_blank" aria-label="View source code on GitHub">
+      &#x2B50; Star on GitHub
     </a>
   </div>
-</section>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">1-Click</div><div class="lbl">Clone</div></div>
+    <div class="hero-stat"><div class="num">8&times;</div><div class="lbl">Parallel</div></div>
+    <div class="hero-stat"><div class="num">Offline</div><div class="lbl">Ready</div></div>
+    <div class="hero-stat"><div class="num">MIT</div><div class="lbl">License</div></div>
+  </div>
+</header>
 
-<div class="demo">
-  <div class="demo-bar">
-    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-  </div>
-  <div class="demo-body">
-    <span class="out">C:\Users\you&gt;</span> <span class="cmd">python cloner.py</span> <span class="arg">https://example.com</span> <span class="arg">--headless</span><br>
-    <span class="out">[22:03:01] Crawling [0/0]: https://example.com</span><br>
-    <span class="out">[22:03:02] Found 47 assets across 1 page(s)</span><br>
-    <span class="out">[22:03:05] Done! 2.3 MB in 3.1s (0.7 MB/s)</span><br>
-    <span class="out">Output: ./cloned_site/</span>
+<!-- ================ TERMINAL DEMO ================ -->
+<div class="demo-wrap">
+  <div class="demo" role="img" aria-label="Terminal demo showing website cloner in action">
+    <div class="demo-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+    <div class="demo-body">
+      <span class="c3">PS C:\Users\you&gt;</span> <span class="c1">python cloner.py</span> <span class="c2">https://dribbble.com/explore</span><br>
+      <span class="c3">[13:42:01]</span> Crawling [0/1]: https://dribbble.com/explore<br>
+      <span class="c3">[13:42:03]</span> Found <strong>346 assets</strong> across <strong>1 page(s)</strong><br>
+      <span class="c3">[13:42:06]</span> Downloaded: <span class="c4">img/hero.png</span> (320 KB)<br>
+      <span class="c3">[13:42:07]</span> Downloaded: <span class="c4">css/main.css</span> (84 KB)<br>
+      <span class="c3">[13:42:12]</span> <span class="c4">Done!</span> 4.8 MB in 8.3s (0.6 MB/s)<br>
+      <span class="c3">[13:42:12]</span> Output: <span class="c2">C:\Users\you\Desktop\cloned_site\</span><br>
+      <span class="c3">PS C:\Users\you&gt;</span> <span class="c1">start cloned_site\index.html</span><br>
+      <span class="c1 blink">&#x258C;</span>
+    </div>
   </div>
 </div>
 
+<!-- ================ FEATURES ================ -->
 <section class="section" id="features">
-  <h2>Features</h2>
+  <div class="section-label">Capabilities</div>
+  <h2>Everything you need</h2>
+  <p class="subtitle">A complete toolkit for cloning and preserving websites &mdash; from asset discovery to offline-ready output.</p>
+
   <div class="features">
     <div class="card">
-      <div class="icon">&#x2B50;</div>
-      <h3>Full GUI</h3>
-      <p>Clean dark-themed interface with real-time stats, animated progress bar, and asset tree view.</p>
+      <div class="icon">&#x1F3A8;</div>
+      <h3>Full Dark GUI</h3>
+      <p>Polished desktop interface with real-time stats, animated progress bar, and asset tree view. No terminal required.</p>
     </div>
     <div class="card">
       <div class="icon">&#x26A1;</div>
-      <h3>Multi-threaded</h3>
-      <p>Downloads assets in parallel with configurable worker threads (1-20).</p>
+      <h3>Parallel Downloads</h3>
+      <p>Multi-threaded asset fetching with 1-20 configurable workers. Downloads images, CSS, JS, and fonts simultaneously.</p>
     </div>
     <div class="card">
       <div class="icon">&#x1F310;</div>
-      <h3>Multi-page Crawl</h3>
-      <p>Follows same-domain links up to a configurable depth to clone entire sections of a site.</p>
+      <h3>Deep Crawl</h3>
+      <p>Follow same-domain links up to configurable depth. Clone entire documentation sites, blogs, or product pages.</p>
     </div>
     <div class="card">
       <div class="icon">&#x1F4DD;</div>
       <h3>URL Rewriting</h3>
-      <p>Converts all asset URLs to local relative paths. Parses and rewrites CSS url() and @import references.</p>
+      <p>All asset references converted to relative paths. CSS url() and @import rules parsed and rewritten automatically.</p>
     </div>
     <div class="card">
       <div class="icon">&#x1F4E6;</div>
-      <h3>Export as ZIP</h3>
-      <p>Package your cloned site into a single .zip file for sharing or archiving.</p>
+      <h3>ZIP Export</h3>
+      <p>Package your entire cloned site into a single .zip archive for easy sharing, backup, or archival storage.</p>
     </div>
     <div class="card">
-      <div class="icon">&#x1F4C1;</div>
-      <h3>CLI Mode</h3>
-      <p>Run headlessly from a terminal, script, or CI pipeline. Same engine, no GUI.</p>
+      <div class="icon">&#x2328;</div>
+      <h3>Headless CLI</h3>
+      <p>Run from terminal or scripts. Pipe output, integrate with CI/CD, or batch-process multiple URLs automatically.</p>
     </div>
     <div class="card">
       <div class="icon">&#x1F4CA;</div>
-      <h3>Live Stats</h3>
-      <p>Track pages, assets, download size, and speed in real-time during the clone.</p>
+      <h3>Live Telemetry</h3>
+      <p>Real-time counters for pages crawled, assets downloaded, total size, and transfer speed during each clone.</p>
     </div>
     <div class="card">
-      <div class="icon">&#x2699;</div>
-      <h3>Configurable</h3>
-      <p>Toggle images, CSS, JS, fonts. Set custom User-Agent, proxy, request delay, and more.</p>
+      <div class="icon">&#x1F6E1;</div>
+      <h3>Rate Limiting</h3>
+      <p>Configurable request delay prevents hitting server limits. Custom User-Agent and proxy support included.</p>
     </div>
     <div class="card">
-      <div class="icon">&#x1F504;</div>
+      <div class="icon">&#x1F4BE;</div>
       <h3>Session Memory</h3>
-      <p>Remembers your settings, window position, and recent URLs between sessions.</p>
+      <p>Remembers all settings, window position, and recent URLs between sessions. Pick up right where you left off.</p>
     </div>
   </div>
 </section>
 
+<!-- ================ USE CASES ================ -->
 <section class="section" id="usecases">
+  <div class="section-label">What People Use It For</div>
   <h2>Use Cases</h2>
+  <p class="subtitle">From platform migration to learning &mdash; here's how Website Cloner helps.</p>
+
   <div class="usecases">
     <div class="usecase">
-      <div class="icon">&#x1F3D7;</div>
+      <span class="icon">&#x1F3D7;</span>
       <h3>Platform Migration</h3>
-      <p>Rebuild a site from WordPress, Webflow, or Squarespace into static HTML you control.</p>
+      <p>Moving from WordPress, Webflow, or Squarespace? Clone your site as static HTML to migrate anywhere.</p>
     </div>
     <div class="usecase">
-      <div class="icon">&#x1F4BE;</div>
-      <h3>Offline Reference</h3>
-      <p>Save documentation, tutorials, or reference sites for offline access — no internet needed.</p>
+      <span class="icon">&#x1F4DA;</span>
+      <h3>Offline Documentation</h3>
+      <p>Save entire docs sites, API references, and tutorials for offline access &mdash; perfect for flights or limited connectivity.</p>
     </div>
     <div class="usecase">
-      <div class="icon">&#x1F4F1;</div>
+      <span class="icon">&#x1F52C;</span>
       <h3>Design Research</h3>
-      <p>Inspect how production sites structure their HTML, CSS, and assets by working with real code.</p>
+      <p>Study how production sites structure their HTML, CSS, and assets by working directly with the source code.</p>
     </div>
     <div class="usecase">
-      <div class="icon">&#x1F4E4;</div>
-      <h3>Archival</h3>
-      <p>Preserve a snapshot of a site before it changes or disappears. Full offline copy with all assets.</p>
+      <span class="icon">&#x1F4E4;</span>
+      <h3>Digital Archival</h3>
+      <p>Preserve snapshots of sites before they change, shut down, or are redesigned. Complete offline copy.</p>
     </div>
     <div class="usecase">
-      <div class="icon">&#x26D3;</div>
-      <h3>Recover Lost Source</h3>
-      <p>Site is live but the original repo is gone? The developer left? Get the code back as a static copy.</p>
+      <span class="icon">&#x26D3;</span>
+      <h3>Lost Source Recovery</h3>
+      <p>Site is live but the repo is gone and the developer left? Extract the full codebase from the deployed version.</p>
     </div>
     <div class="usecase">
-      <div class="icon">&#x1F527;</div>
+      <span class="icon">&#x1F3C3;</span>
       <h3>Rapid Prototyping</h3>
-      <p>Clone a landing page or component library as a starting point for your own project.</p>
+      <p>Clone a landing page or component library as a starting point for your own project &mdash; modify and iterate.</p>
     </div>
   </div>
 </section>
 
-<section class="section" id="quickstart">
-  <h2>How to Use</h2>
+<!-- ================ HOW TO USE ================ -->
+<section class="section">
+  <div class="section-label">Getting Started</div>
+  <h2>Four steps to your clone</h2>
+  <p class="subtitle">No sign-up, no API keys, no configuration files. Just paste and go.</p>
+
   <div class="steps">
     <div class="step">
       <div class="num">1</div>
       <h3>Enter URL</h3>
-      <p>Paste any website URL or press Ctrl+V to grab from clipboard.</p>
+      <p>Paste any website address, or press Ctrl+V to grab from your clipboard.</p>
     </div>
     <div class="step">
       <div class="num">2</div>
       <h3>Configure</h3>
-      <p>Choose output folder. Toggle asset types, set crawl depth, adjust workers.</p>
+      <p>Pick an output folder, toggle asset types, set crawl depth, adjust parallelism.</p>
     </div>
     <div class="step">
       <div class="num">3</div>
-      <h3>Click Clone</h3>
-      <p>Watch real-time progress as assets download in parallel.</p>
+      <h3>Clone</h3>
+      <p>Watch real-time progress as assets stream in with live speed and status updates.</p>
     </div>
     <div class="step">
       <div class="num">4</div>
-      <h3>Open Site</h3>
-      <p>Click Open Site to view your fully-functional offline copy.</p>
+      <h3>Browse Offline</h3>
+      <p>Open your fully functional local copy &mdash; every image, style, and script intact.</p>
     </div>
   </div>
 </section>
 
+<!-- ================ CTA ================ -->
 <div class="cta">
-  <h2>Ready to clone?</h2>
-  <p>Download the standalone .exe — no Python required. Runs on Windows 10/11.</p>
-  <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe" class="btn btn-primary" style="font-size:17px; padding:14px 36px;">
-    &#x2B07; Download WebsiteCloner.exe
-  </a>
-  <p class="cta-info">v3.0.0 &middot; 12.8 MB &middot; Windows 10/11 &middot; <a href="https://github.com/JamesCowx/website-cloner">Source (Python)</a></p>
+  <div class="cta-card">
+    <h2>Start cloning in 30 seconds</h2>
+    <p>Free, open-source, and self-contained. No Python install needed on Windows.</p>
+    <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe" class="btn btn-pri" style="font-size:17px; padding:16px 40px;">
+      &#x2B07; Download WebsiteCloner.exe
+    </a>
+    <div class="info">
+      <span><strong>v3.0.0</strong></span>
+      <span>&middot;</span>
+      <span><strong>12.8 MB</strong></span>
+      <span>&middot;</span>
+      <span>Windows 10/11</span>
+      <span>&middot;</span>
+      <a href="https://github.com/JamesCowx/website-cloner">macOS / Linux (source)</a>
+    </div>
+  </div>
 </div>
 
+<!-- ================ FOOTER ================ -->
 <footer>
-  <p>Built with Python + Tkinter. No API keys, no external services. &middot; <a href="https://github.com/JamesCowx/website-cloner">MIT License</a></p>
+  <div class="links">
+    <a href="https://github.com/JamesCowx/website-cloner">GitHub</a>
+    <a href="https://github.com/JamesCowx/website-cloner/releases">Releases</a>
+    <a href="https://github.com/JamesCowx/website-cloner/blob/master/LICENSE">MIT License</a>
+  </div>
+  <p>Website Cloner &mdash; Built with Python + Tkinter. No external services, no API keys, no trackers.</p>
 </footer>
 
+</div>
 </body>
 </html>
