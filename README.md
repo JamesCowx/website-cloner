@@ -63,8 +63,13 @@ python cloner.py          # GUI mode
 python cloner.py https://example.com --headless -o ./mysite   # CLI mode
 ```
 
+### No Python? Download the .exe
+
+Grab the standalone executable from [**Releases**](https://github.com/JamesCowx/website-cloner/releases) — no Python required.
+
 <table>
-<tr><td><b>Windows</b></td><td>Double-click <code>run.bat</code></td></tr>
+<tr><td><b>Windows (.exe)</b></td><td>Download <code>WebsiteCloner.exe</code>, double-click to run</td></tr>
+<tr><td><b>Windows (source)</b></td><td>Double-click <code>run.bat</code></td></tr>
 <tr><td><b>macOS / Linux</b></td><td><code>python cloner.py</code></td></tr>
 </table>
 
