@@ -136,6 +136,10 @@ class WebsiteCloner:
     )
 
     def __init__(self, log_cb=None, prog_cb=None, asset_cb=None, speed_cb=None):
+        if requests is None:
+            raise RuntimeError("requests library not installed. Run: pip install requests")
+        if BeautifulSoup is None:
+            raise RuntimeError("beautifulsoup4 not installed. Run: pip install beautifulsoup4")
         self._init_session()
         self.base = ""
         self.out = ""
@@ -148,6 +152,7 @@ class WebsiteCloner:
         self.opts = {}
         self.t0 = 0
         self.bytes = 0
+        self._lock = threading.Lock()
         self.pages = 0
         self.soups = {}
         self.log_cb = log_cb
@@ -252,17 +257,25 @@ class WebsiteCloner:
             r.raise_for_status()
             ct = r.headers.get("content-type", "").lower()
             if "text/html" in ct and not path.endswith((".html", ".htm")):
-                return r.text
+                text = r.text
+                with self._lock:
+                    self.bytes += len(text.encode("utf-8"))
+                return text
             os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
             with open(path, "wb") as f:
                 for chunk in r.iter_content(65536):
                     if self.stop:
                         return None
                     f.write(chunk)
-                    self.bytes += len(chunk)
+                    with self._lock:
+                        self.bytes += len(chunk)
             return path
-        except Exception as e:
-            self.errs.append(url)
+        except Exception:
+            if os.path.exists(path):
+                try:
+                    os.remove(path)
+                except OSError:
+                    pass
             return None
 
     def _css_urls(self, css, base_url):
@@ -375,14 +388,6 @@ class WebsiteCloner:
         finally:
             self._init_session()
 
-    def _page_path(self, url):
-        parsed = urllib.parse.urlparse(url)
-        path = parsed.path.strip("/") or "index.html"
-        parts = path.split("/")
-        if not parts[-1] or "." not in parts[-1]:
-            parts.append("index.html")
-        return "/".join(RE_INVALID_FILECHARS.sub("_", p)[:200] for p in parts)
-
     def _collect(self, soup, page_url):
         rules = [
             ("img", "src"), ("img", "srcset"),
@@ -454,7 +459,8 @@ class WebsiteCloner:
                 except Exception:
                     if self.asset_cb:
                         self.asset_cb(au, "fail", lp)
-                self.done += 1
+                with self._lock:
+                    self.done += 1
                 self.upd()
 
     def _write_pages(self):
@@ -523,6 +529,21 @@ class WebsiteCloner:
                 html = str(sp)
                 html = RE_BLANK.sub("\n", html)
                 html = RE_WHITESPACE.sub("><", html)
+
+            rp = self._page_path(pu)
+            fp = os.path.join(self.out, rp)
+            os.makedirs(os.path.dirname(fp), exist_ok=True)
+            html = str(sp)
+            with open(fp, "w", encoding="utf-8") as f:
+                f.write(html)
+
+    def _page_path(self, url):
+        parsed = urllib.parse.urlparse(url)
+        path = parsed.path.strip("/") or "index.html"
+        parts = path.split("/")
+        if not parts[-1] or "." not in parts[-1]:
+            parts.append("index.html")
+        return "/".join(RE_INVALID_FILECHARS.sub("_", p)[:200] for p in parts)
 
     def _manifest(self):
         mf = {
@@ -1055,6 +1076,8 @@ class ClonerApp:
             tk.Label(hi, text="Recent", font=(FONT, 10, "bold"),
                      bg=C["card"], fg=C["fgb"]).pack(anchor="w", pady=(0, 4))
             for h in self.history[-5:]:
+                if not isinstance(h, dict) or "url" not in h:
+                    continue
                 hr = tk.Frame(hi, bg=C["card"])
                 hr.pack(fill="x", pady=1)
                 url_text = h["url"][:50]
@@ -1207,7 +1230,7 @@ class ClonerApp:
 
         # Record history
         entry = {"url": url, "when": datetime.now().isoformat()}
-        self.history = [h for h in self.history if h["url"] != url]  # dedupe
+        self.history = [h for h in self.history if isinstance(h, dict) and h.get("url") != url]
         self.history.insert(0, entry)
         self.history = self.history[:20]
 
