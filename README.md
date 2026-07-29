@@ -1,85 +1,91 @@
-<p align="center">
-  <img src="https://img.shields.io/github/stars/JamesCowx/website-cloner?style=for-the-badge&logo=github&color=6366f1&logoColor=white" alt="Stars">
-  <img src="https://img.shields.io/github/license/JamesCowx/website-cloner?style=for-the-badge&color=22c55e" alt="License">
-  <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Windows-10%2F11-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
-  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey?style=for-the-badge" alt="Cross-platform">
-</p>
+<div align="center">
+
+<img src="https://img.shields.io/github/stars/JamesCowx/website-cloner?style=for-the-badge&logo=github&color=6366f1&logoColor=white" alt="Stars">
+<img src="https://img.shields.io/github/license/JamesCowx/website-cloner?style=for-the-badge&color=22c55e" alt="MIT">
+<img src="https://img.shields.io/badge/python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/windows-10%2F11-0078D6?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
+<img src="https://img.shields.io/badge/macOS%20%7C%20Linux-source-lightgrey?style=for-the-badge" alt="macOS/Linux">
+<br>
+<img src="https://img.shields.io/github/v/release/JamesCowx/website-cloner?color=22c55e&style=flat-square" alt="Release">
+<a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe"><img src="https://img.shields.io/badge/Download-.exe-4f46e5?style=flat-square&logo=windows&logoColor=white" alt="Download"></a>
+<img src="https://img.shields.io/github/repo-size/JamesCowx/website-cloner?color=f59e0b&style=flat-square" alt="Size">
+<img src="https://img.shields.io/github/languages/code-size/JamesCowx/website-cloner?color=06b6d4&style=flat-square" alt="Code size">
+
+</div>
 
 <br>
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/JamesCowx/website-cloner/master/docs/header.svg" width="100%" alt="Website Cloner" onerror="this.style.display='none'">
-</p>
-
 <pre align="center">
-   ██╗    ██╗███████╗██████╗ ███████╗██╗████████╗███████╗     ██████╗██╗      ██████╗ ███╗   ██╗███████╗██████╗
-   ██║    ██║██╔════╝██╔══██╗██╔════╝██║╚══██╔══╝██╔════╝    ██╔════╝██║     ██╔═══██╗████╗  ██║██╔════╝██╔══██╗
-   ██║ █╗ ██║█████╗  ██████╔╝███████╗██║   ██║   █████╗      ██║     ██║     ██║   ██║██╔██╗ ██║█████╗  ██████╔╝
-   ██║███╗██║██╔══╝  ██╔══██╗╚════██║██║   ██║   ██╔══╝      ██║     ██║     ██║   ██║██║╚██╗██║██╔══╝  ██╔══██╗
-   ╚███╔███╔╝███████╗██████╔╝███████║██║   ██║   ███████╗    ╚██████╗███████╗╚██████╔╝██║ ╚████║███████╗██║  ██║
-    ╚══╝╚══╝ ╚══════╝╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚══════╝     ╚═════╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝
+  ██╗    ██╗███████╗██████╗ ███████╗██╗████████╗███████╗     ██████╗██╗      ██████╗ ███╗   ██╗███████╗██████╗  
+  ██║    ██║██╔════╝██╔══██╗██╔════╝██║╚══██╔══╝██╔════╝    ██╔════╝██║     ██╔═══██╗████╗  ██║██╔════╝██╔══██╗ 
+  ██║ █╗ ██║█████╗  ██████╔╝███████╗██║   ██║   █████╗      ██║     ██║     ██║   ██║██╔██╗ ██║█████╗  ██████╔╝ 
+  ██║███╗██║██╔══╝  ██╔══██╗╚════██║██║   ██║   ██╔══╝      ██║     ██║     ██║   ██║██║╚██╗██║██╔══╝  ██╔══██╗ 
+  ╚███╔███╔╝███████╗██████╔╝███████║██║   ██║   ███████╗    ╚██████╗███████╗╚██████╔╝██║ ╚████║███████╗██║  ██║ 
+   ╚══╝╚══╝ ╚══════╝╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚══════╝     ╚═════╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ 
 </pre>
 
 <p align="center">
-  <b>Clone any website into a local static copy &mdash; with a beautiful full GUI.</b><br>
-  <sub>Zero configuration. No API keys. No external services. Just paste a URL and press Clone.</sub>
+  <b>Paste a URL. Press Clone. Own the output.</b><br>
+  <sub>A single-file Python desktop app that downloads entire websites into static HTML.<br>Zero config. No API keys. No external services. Just your machine and a URL.</sub>
 </p>
-
-<br>
-
-<p align="center">
-  <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/anonymous/raw/placeholder.json&style=flat-square" alt="" style="display:none">
-  <a href="https://jamescowx.github.io/website-cloner/"><img src="https://img.shields.io/badge/Website-Landing_Page-6366f1?style=flat-square" alt="Website"></a>
-  <a href="https://github.com/JamesCowx/website-cloner/releases/latest"><img src="https://img.shields.io/github/v/release/JamesCowx/website-cloner?color=22c55e&include_prereleases&style=flat-square" alt="Release"></a>
-  <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe"><img src="https://img.shields.io/badge/Download-.exe-4f46e5?style=flat-square&logo=windows&logoColor=white" alt="Download"></a>
-  <img src="https://img.shields.io/github/repo-size/JamesCowx/website-cloner?color=f59e0b&style=flat-square" alt="Size">
-</p>
-
-<br>
 
 ---
 
-##   Table of Contents
-
-- [  Quick Start](#-quick-start)
-- [  How It Works](#-how-it-works)
-- [  Features](#-features)
-- [  Options Reference](#-options-reference)
-- [  Command-Line Mode](#-command-line-mode)
-- [  Use Cases](#-use-cases)
-- [  Keyboard Shortcuts](#-keyboard-shortcuts)
-- [  Output Structure](#-output-structure)
-- [  Architecture](#-architecture)
-- [  FAQ](#-faq)
-- [  Contributing](#-contributing)
-
 <br>
 
----
+##   What Is This?
 
-##   Quick Start
+**Website Cloner** is a desktop application that turns any live website into a fully offline, self-contained folder of HTML + assets. Install it, paste a URL, and get a local copy that works without internet.
+
+> &#x1F4A1; Think of it like `wget --mirror`, but with a beautiful GUI, parallel downloads, CSS rewriting, and ZIP export.
+
+<br>
 
 <table>
 <tr>
-<td width="65%">
+<td width="50%" align="center">
+  <h3>  Before</h3>
+  <sub>The live site you want to archive, study, or migrate</sub>
+  <br><br>
+  <code>https://example.com</code>
+  <br>
+  <sup>&#x1F310; Online only &middot; Depends on server &middot; Can change or disappear</sup>
+</td>
+<td width="50%" align="center">
+  <h3>  After</h3>
+  <sub>A local folder you own completely</sub>
+  <br><br>
+  <code>cloned_site/index.html</code>
+  <br>
+  <sup>&#x1F4C1; Fully offline &middot; All assets local &middot; Yours forever</sup>
+</td>
+</tr>
+</table>
 
-###   Option A &mdash; Download the .exe (Windows)
+---
 
-No Python required. Download the standalone executable and double-click.
+<br>
 
-<p align="center">
-  <a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe">
-    <img src="https://img.shields.io/badge/Download-WebsiteCloner.exe-6366f1?style=for-the-badge&logo=windows&logoColor=white" alt="Download .exe" width="320">
-  </a>
-</p>
+##   Pick Your Path
 
-> **File:** `WebsiteCloner.exe` &middot; **Size:** 12.8 MB &middot; **Requires:** Windows 10 or 11
+<table>
+<tr>
+<td width="50%">
+
+### &#x1F4E6; Download .exe (Windows)
+
+<a href="https://github.com/JamesCowx/website-cloner/releases/latest/download/WebsiteCloner.exe">
+  <img src="https://img.shields.io/badge/Download-WebsiteCloner.exe-6366f1?style=for-the-badge&logo=windows&logoColor=white" alt="Download">
+</a>
+
+- Double-click to run
+- No Python install needed
+- 12.8 MB &middot; Windows 10/11
 
 </td>
-<td width="35%">
+<td width="50%">
 
-###   Option B &mdash; Run from source
+### &#x1F4BB; Run from Source
 
 ```bash
 git clone https://github.com/JamesCowx/website-cloner.git
@@ -88,404 +94,322 @@ pip install -r requirements.txt
 python cloner.py
 ```
 
-> **Requires:** Python 3.9+ &middot; Works on Windows, macOS, and Linux
+- Python 3.9+ required
+- Works on Windows, macOS, Linux
+- 1,060 lines &middot; single file
 
 </td>
 </tr>
 </table>
 
-<br>
-
 ---
 
-##   How It Works
-
-The cloner executes a **four-phase pipeline** that transforms a live URL into a fully-local static website.
-
-<pre>
-   <b>PHASE 1: CRAWL</b>                   <b>PHASE 2: COLLECT</b>                  <b>PHASE 3: DOWNLOAD</b>                 <b>PHASE 4: REWRITE</b>
-
-   Fetch target URL                   Parse HTML + CSS                   Fan-out 8 threads                   Replace all URLs with
-   Follow same-domain links           Extract every &lt;img&gt;,              Download in parallel               local relative paths
-   Configured depth (1-10)            &lt;script&gt;, &lt;link&gt;, &lt;video&gt;,       Real-time speed + progress         Fix CSS url() refs
-                                      url(), @import rules               Track per-file status              Optional: inline/minify
-
-   <span style="color:#6366f1">  Input URL</span>                         <span style="color:#f59e0b">  250+ Assets Found</span>               <span style="color:#22c55e">  4.8 MB in 3.2s</span>                 <span style="color:#06b6d4">  100% Offline-Ready</span>
-</pre>
-
 <br>
 
-### Pipeline Diagram
+##   The Pipeline
+
+Four phases turn a URL into a folder:
 
 ```
-   https://example.com
-        │
-        ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  CRAWL                                                       │
- │  ─────                                                       │
- │  GET /        200 OK    [depth 0]                             │
- │  GET /about   200 OK    [depth 1]  ── if depth > 1           │
- │  GET /pricing 200 OK    [depth 1]  ── if depth > 1           │
- └──────────────┬───────────────────────────────────────────────┘
-                │
-                ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  COLLECT                                                     │
- │  ───────                                                     │
- │  <img src="hero.png">           →   /assets/img/hero.png     │
- │  <link href="style.css">        →   /assets/css/style.css    │
- │  <script src="app.js">          →   /assets/js/app.js        │
- │  url("../fonts/Inter.woff2")    →   /assets/fonts/Inter...   │
- │  @import "theme.css"            →   /assets/css/theme.css    │
- └──────────────┬───────────────────────────────────────────────┘
-                │
-                ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  DOWNLOAD  (ThreadPoolExecutor, 8 workers)                    │
- │  ────────                                                    │
- │  [ 1] ████████████ hero.png         320 KB   ✓                │
- │  [ 2] ████████████ style.css         84 KB   ✓                │
- │  [ 3] ████████████ app.js           156 KB   ✓                │
- │  [ 4] ████████████ Inter.woff2       48 KB   ✓                │
- │  [ 5] ████████████ logo.svg           2 KB   ✓                │
- │  ...                                                          │
- │  [47] ████████████ footer-bg.jpg    120 KB   ✓                │
- └──────────────┬───────────────────────────────────────────────┘
-                │
-                ▼
- ┌──────────────────────────────────────────────────────────────┐
- │  REWRITE                                                     │
- │  ───────                                                     │
- │  hero.png      →   assets/img/hero.png                       │
- │  style.css     →   assets/css/style.css                      │
- │  app.js        →   assets/js/app.js                          │
- │  Inter.woff2   →   assets/fonts/Inter.woff2                  │
- │                                                               │
- │  CSS url()     →   Rewrite to local paths                    │
- │  @import       →   Rewrite to local paths                    │
- └──────────────┬───────────────────────────────────────────────┘
-                │
-                ▼
-       ┌───────────────────┐
-       │  cloned_site/     │
-       │   index.html      │  ←──  Fully functional, offline
-       │   about.html      │  ←──  All images load locally
-       │   manifest.json   │  ←──  Complete metadata + asset log
-       │   assets/         │
-       │     img/          │
-       │     css/          │
-       │     js/           │
-       │     fonts/        │
-       │     videos/       │
-       └───────────────────┘
+ ┌──────────────────────────────────────────────────────────────────┐
+ │                                                                   │
+ │   1    Crawl                   2    Collect                       │
+ │   ──────────                   ──────────                        │
+ │   Fetch target page            Parse HTML & CSS                  │
+ │   Follow same-domain links     Find every asset reference:       │
+ │   Configurable depth (1-10)    <img> <script> <link> <video>    │
+ │                                url() @import srcset               │
+ │                                                                   │
+ │   3    Download                 4    Rewrite                      │
+ │   ──────────                   ──────────                        │
+ │   ThreadPoolExecutor           Replace remote URLs               │
+ │   Fan-out 8 workers            with local relative paths         │
+ │   Real-time speed + progress   Fix CSS references                │
+ │   Per-file status tracking     Optional: inline, minify           │
+ │                                                                   │
+ └──────────────────────────────────────────────────────────────────┘
 ```
 
 <br>
 
+### Visual Walkthrough
+
+```
+  https://stripe.com/pricing
+       │
+       ▼
+ ┌──────────────────────────────────┐
+ │ 1. CRAWL                          │
+ │    GET /pricing → 200 OK          │
+ │    Discover: /about, /docs, /api  │
+ └──────────┬───────────────────────┘
+            ▼
+ ┌──────────────────────────────────┐
+ │ 2. COLLECT                        │
+ │    Found 247 assets:              │
+ │     hero-bg.png                   │
+ │     pricing.css                   │
+ │     app.js                        │
+ │     StripeSans.woff2              │
+ │     logo.svg                      │
+ │     ... and 242 more               │
+ └──────────┬───────────────────────┘
+            ▼
+ ┌──────────────────────────────────┐
+ │ 3. DOWNLOAD                       │
+ │    Thread 1 ██░░  hero-bg.png    │
+ │    Thread 2 ████  pricing.css    │
+ │    Thread 3 ██░░  app.js         │
+ │    ...8 threads hammering away...  │
+ │    4.8 MB in 3.2s (1.5 MB/s)     │
+ └──────────┬───────────────────────┘
+            ▼
+ ┌──────────────────────────────────┐
+ │ 4. REWRITE                        │
+ │    ../css/pricing.css → assets/   │
+ │    /img/hero.png → assets/img/    │
+ │    CSS url() refs → local paths   │
+ └──────────────────────────────────┘
+            │
+            ▼
+     cloned_site/
+     ├── pricing.html     ← works offline
+     ├── about.html
+     ├── manifest.json    ← full metadata
+     └── assets/
+           ├── img/
+           ├── css/
+           ├── js/
+           └── fonts/
+```
+
 ---
+
+<br>
 
 ##   Features
 
-<table>
-<tr>
-<th width="50%">  GUI & Experience</th>
-<th width="50%">  Engine & Performance</th>
-</tr>
-<tr>
-<td>
-
-| | |
+| Category | What You Get |
 |---|---|
-| &#x1F3A8; | **Polished dark UI** with custom Canvas widgets, rounded cards, and animated progress |
-| &#x1F4CA; | **Live stats dashboard** &mdash; pages, assets, download size, and transfer speed |
-| &#x1F4C3; | **Asset tree view** with per-file OK/FAIL status coloring |
-| &#x1F4AC; | **Color-coded console log** (blue=info, green=success, red=error, orange=warning) |
-| &#x2328; | **Keyboard shortcuts** &mdash; Enter to start, Escape to cancel, Ctrl+V to paste |
-| &#x1F4BE; | **Session persistence** &mdash; remembers settings, window position, and recent URLs |
-| &#x1F4CB; | **Clickable history** &mdash; re-clone any of your last 5 URLs with one click |
-
-</td>
-<td>
-
-| | |
-|---|---|
-| &#x26A1; | **Parallel downloads** &mdash; ThreadPoolExecutor with 1-20 configurable workers |
-| &#x1F310; | **Multi-page crawl** &mdash; follows same-domain links up to configurable depth |
-| &#x1F4DD; | **CSS parsing** &mdash; discovers assets in `url()` and `@import` rules |
-| &#x1F504; | **URL rewriting** &mdash; all references converted to local relative paths |
-| &#x1F6E1; | **Rate limiting** &mdash; configurable delay between requests to avoid server bans |
-| &#x1F512; | **Proxy support** &mdash; route all traffic through your HTTP/HTTPS proxy |
-| &#x1F4E6; | **ZIP export** &mdash; package the cloned site into a single archive |
-
-</td>
-</tr>
-</table>
-
-<br>
+| &#x1F3A8; **GUI** | Dark-themed custom interface with rounded cards, Canvas-drawn shadows, animated progress bar, live stats dashboard |
+| &#x26A1; **Speed** | ThreadPoolExecutor with configurable 1-20 workers, parallel asset downloading, real-time MB/s display |
+| &#x1F310; **Crawl** | Same-domain link following up to configurable depth, filters `javascript:`, `mailto:`, `#` links automatically |
+| &#x1F4DD; **CSS** | Parses `url()` and `@import` rules to discover nested assets, then rewrites them to local paths |
+| &#x1F504; **Rewrite** | Converts every `src`, `href`, `srcset`, `poster`, and `data` attribute to relative paths |
+| &#x1F4E6; **Export** | One-click ZIP packaging of the entire cloned site for sharing or archival |
+| &#x2328; **CLI** | Full headless mode: `python cloner.py https://site.com --headless -o ./out -d 2` |
+| &#x1F6E1; **Safety** | Configurable request delay, custom User-Agent, HTTP proxy support |
+| &#x1F4BE; **Memory** | Saves settings, window geometry, and recent-URL history between sessions |
+| &#x1F4CB; **Manifest** | `cloner_manifest.json` with source URL, byte counts, full asset map, and error log |
 
 ---
 
-##   Options Reference
+<br>
 
-### Content Filters
+##   All Options
 
-| Option | Default | What It Controls |
-|:---|:---:|:---|
-| **Images** | `ON` | Downloads `png`, `jpg`, `jpeg`, `gif`, `svg`, `webp`, `ico`, `bmp` |
-| **CSS** | `ON` | Downloads stylesheets, parses nested `url()` and `@import` references |
-| **JavaScript** | `ON` | Downloads external `<script src="...">` files (`js`, `mjs`, `ts`) |
-| **Fonts** | `ON` | Downloads web fonts (`woff`, `woff2`, `ttf`, `eot`, `otf`) |
+<details open>
+<summary><b>  Content Filters</b></summary>
 
-### Processing Options
+| Option | Default | Extensions Covered |
+|---|---|---|
+| **Images** | `ON` | `png` `jpg` `jpeg` `gif` `svg` `webp` `ico` `bmp` `tiff` |
+| **CSS** | `ON` | `css` `scss` `less` `sass` |
+| **JavaScript** | `ON` | `js` `mjs` `ts` `jsx` |
+| **Fonts** | `ON` | `woff` `woff2` `ttf` `eot` `otf` |
 
-| Option | Default | What It Does |
-|:---|:---:|:---|
-| **Same domain** | `ON` | Only download assets and follow links from the target domain |
-| **Strip params** | `ON` | Remove `?v=1.2.3` query strings from asset URLs for cleaner filenames |
-| **Rewrite CSS** | `ON` | Replace CSS `url()` folder references with local paths so styles work offline |
-| **Minify HTML** | `OFF` | Strip blank lines and collapse whitespace in output |
-| **Inline CSS** | `OFF` | Embed external stylesheets into `<style>` tags (fewer files, larger HTML) |
-| **Inline JS** | `OFF` | Embed external scripts into `<script>` tags |
+</details>
 
-### Advanced
+<details>
+<summary><b>  Processing</b></summary>
+
+| Option | Default | Behavior |
+|---|---|---|
+| **Same domain** | `ON` | Restrict downloads to the target domain |
+| **Strip params** | `ON` | Remove `?v=1.2.3` from filenames |
+| **Rewrite CSS** | `ON` | Convert CSS `url()` paths to local |
+| **Inline CSS** | `OFF` | Embed stylesheets as `<style>` tags |
+| **Inline JS** | `OFF` | Embed scripts as `<script>` tags |
+| **Minify HTML** | `OFF` | Collapse whitespace in output |
+
+</details>
+
+<details>
+<summary><b>  Advanced</b></summary>
 
 | Setting | Default | Range | Purpose |
-|:---|:---:|:---:|:---|
-| **Depth** | `1` | 1-10 | Levels of linked pages to crawl |
-| **Workers** | `8` | 1-20 | Concurrent download threads |
-| **Delay** | `0.1s` | 0-5s | Cooldown between requests (rate limiting) |
-| **Timeout** | `30s` | 5-120s | Maximum wait per HTTP request |
-| **User-Agent** | `Chrome 125` | Any string | Custom browser identifier |
-| **Proxy** | _(none)_ | `host:port` | Route traffic through proxy server |
+|---|---|---|---|
+| **Depth** | `1` | 1-10 | Link-following depth |
+| **Workers** | `8` | 1-20 | Parallel download threads |
+| **Delay** | `0.1s` | 0-5s | Cooldown between requests |
+| **Timeout** | `30s` | 5-120s | Per-request max wait |
+| **User-Agent** | `Chrome 125` | Any | Custom browser header |
+| **Proxy** | _(none)_ | `host:port` | HTTP/HTTPS proxy |
 
-<br>
+</details>
 
 ---
 
-##   Command-Line Mode
+<br>
 
-The full engine works without the GUI. Useful for scripting, CI pipelines, and batch processing.
+##   CLI Mode
 
 ```bash
-# Clone a single page
+# One-liner: clone a page
 python cloner.py https://example.com --headless
 
-# Clone 3 levels deep, custom output
-python cloner.py https://docs.python.org --headless -o ./python-docs -d 3
+# Deep crawl, custom output
+python cloner.py https://docs.python.org/3/ --headless -o ./python-docs -d 3
 
-# All available flags
-python cloner.py <url> [--headless] [--output <dir>] [--depth <n>]
+# Flags
+python cloner.py <url> [--headless|-h] [--output|-o <dir>] [--depth|-d <n>]
 ```
 
-| Flag | Alias | Description |
-|:---|:---|:---|
-| `<url>` | &mdash; | Website to clone (must start with `http://` or `https://`) |
-| `--headless` | `-h` | Run without opening the GUI window |
-| `--output <dir>` | `-o` | Directory to write the cloned site (default: `./cloned_site`) |
-| `--depth <n>` | `-d` | Number of link levels to crawl (default: 1) |
+---
 
 <br>
-
----
 
 ##   Use Cases
 
 <table>
 <tr>
-<td>
+  <td width="50%">
 
-```markdown
-  PLATFORM MIGRATION
-  ──────────────────
-  Moving from WordPress, Webflow,
-  or Squarespace? Clone your live
-  site as static HTML and deploy
-  anywhere — Netlify, Vercel, S3,
-  or GitHub Pages.
-```
+### &#x1F3D7; Platform Migration
+Moving from WordPress, Webflow, or Squarespace? Clone your live site as static HTML. Deploy anywhere &mdash; Netlify, Vercel, S3, GitHub Pages.
 
-</td>
-<td>
+  </td>
+  <td width="50%">
 
-```markdown
-  OFFLINE REFERENCE
-  ─────────────────
-  Save entire documentation sites,
-  API references, and tutorials
-  for offline access. Perfect for
-  flights, commutes, or unreliable
-  internet connections.
-```
+### &#x1F4DA; Offline Reference
+Save entire documentation sites, API references, and tutorials for flights, commutes, or unreliable internet.
 
-</td>
-<td>
-
-```markdown
-  DESIGN RESEARCH
-  ───────────────
-  Study how production sites
-  structure their HTML, CSS,
-  and JavaScript by working
-  directly with the real
-  source code.
-```
-
-</td>
+  </td>
 </tr>
 <tr>
-<td>
+  <td width="50%">
 
-```markdown
-  DIGITAL ARCHIVAL
-  ────────────────
-  Preserve a snapshot of a site
-  before it changes, shuts down,
-  or gets redesigned. Full
-  offline copy with every asset.
-```
+### &#x1F52C; Design Research
+Study how production sites structure their HTML, CSS, and assets by working with the real source code directly.
 
-</td>
-<td>
+  </td>
+  <td width="50%">
 
-```markdown
-  LOST SOURCE RECOVERY
-  ────────────────────
-  Site is live but the original
-  repo is gone? The developer
-  left? Extract the full
-  codebase from the deployed
-  version.
-```
+### &#x1F4E4; Digital Archival
+Preserve a snapshot of a site before it changes, shuts down, or gets redesigned. Complete offline copy with every asset intact.
 
-</td>
-<td>
+  </td>
+</tr>
+<tr>
+  <td width="50%">
 
-```markdown
-  RAPID PROTOTYPING
-  ─────────────────
-  Clone a landing page or
-  component library as a
-  starting point for your
-  own project — modify
-  and iterate fast.
-```
+### &#x26D3; Lost Source Recovery
+Site is live but the repo is gone? Developer left? Stack is legacy? Extract the full codebase from the deployed version.
 
-</td>
+  </td>
+  <td width="50%">
+
+### &#x1F3C3; Rapid Prototyping
+Clone a landing page or component library as a starting point &mdash; modify, iterate, ship.
+
+  </td>
 </tr>
 </table>
 
-<br>
-
 ---
-
-##   Keyboard Shortcuts
-
-| Key | When | Action |
-|:---:|:---|:---|
-| `Enter` | URL field focused | Start clone |
-| `Escape` | Cloning | Cancel clone |
-| `Ctrl + V` | Anywhere | Paste URL from clipboard |
-| `Ctrl + L` | Anywhere | Focus URL field |
 
 <br>
 
+##   Shortcuts
+
+| Key | Action |
+|:---:|:---|
+| `Enter` | Start cloning |
+| `Escape` | Cancel clone |
+| `Ctrl + V` | Paste URL from clipboard |
+| `Ctrl + L` | Focus URL field |
+
 ---
 
-##   Output Structure
+<br>
+
+##   Output
 
 ```
 cloned_site/
-  │
-  ├── index.html                  ← Main page (all URLs rewritten to relative paths)
-  ├── about.html                  ← Additional crawled pages
-  ├── pricing.html
-  │
-  ├── cloner_manifest.json        ← Full metadata: source URL, timestamps,
-  │                                  asset map, byte counts, error log
-  │
-  └── assets/
-        ├── img/                  ← hero.png, logo.svg, bg.jpg, favicon.ico ...
-        ├── css/                  ← style.css, theme.css (url() refs rewritten)
-        ├── js/                   ← app.js, vendor.js
-        ├── fonts/                ← Inter.woff2, JetBrainsMono.ttf ...
-        ├── videos/               ← intro.mp4
-        ├── audio/                ← podcast.mp3
-        ├── data/                 ← config.json, data.xml
-        ├── other/                ← Everything that didn't match a known type
-        └── docs/                 ← PDFs, documents
+├── index.html              ← main page, all paths rewritten
+├── about.html              ← crawled sub-pages
+├── pricing.html
+├── cloner_manifest.json    ← metadata: source, bytes, asset map, errors
+└── assets/
+      ├── img/              ← hero.png, logo.svg, favicon.ico, bg.jpg...
+      ├── css/              ← style.css, theme.css (url() refs rewritten)
+      ├── js/               ← app.js, vendor.js
+      ├── fonts/            ← Inter.woff2, JetBrainsMono.ttf...
+      ├── videos/           ← intro.mp4
+      ├── audio/            ← podcast.mp3
+      ├── data/             ← config.json, en.xml
+      ├── docs/             ← whitepaper.pdf
+      └── other/            ← uncategorized assets
 ```
 
-<br>
-
 ---
+
+<br>
 
 ##   Architecture
 
 ```
-cloner.py  (1,060 lines)
-  │
-  ├── C                      Design system constants (30+ colors, fonts)
-  │
-  ├── WebsiteCloner          Cloning engine
-  │   ├── clone()            Orchestrator: crawl → collect → download → write
-  │   ├── _collect()         Asset discovery from HTML attributes + CSS rules
-  │   ├── _download_all()    ThreadPoolExecutor fan-out, progress tracking
-  │   ├── _write_pages()     URL rewriting, CSS fixing, optional inline/minify
-  │   ├── _manifest()        Export cloner_manifest.json with full metadata
-  │   ├── _norm()            URL normalization & deduplication
-  │   ├── _rewrite_css()     Replaces remote url() refs with local paths
-  │   └── _css_urls()        Parse url() and @import from stylesheets
-  │
-  ├── RoundedFrame           Canvas-based card widget with rounded corners + shadow
-  ├── ProgressBar            Animated progress with smooth value interpolation
-  ├── Console                Color-coded scrollable log output
-  ├── AssetTree              Live-updating treeview of downloaded files
-  │
-  └── ClonerApp              Full tkinter GUI
-      ├── _build()           2-panel layout: sidebar + main content
-      ├── _start() / _done() Clone lifecycle with button state toggling
-      ├── _poll()            Thread-safe queue dispatch → UI updates (60ms tick)
-      ├── _on_close()        Config serialization to disk
-      ├── _bind_keys()       Keyboard shortcut registration
-      └── _export()          ZIP packaging of cloned site
-```
+cloner.py  (single file, 1,060 lines, zero dependencies beyond stdlib + requests + bs4)
 
-<br>
+  ├── C                    30-color design system
+  │
+  ├── WebsiteCloner        Cloning engine
+  │   ├── clone()          Orchestrator: crawl → collect → download → write
+  │   ├── _collect()       Asset discovery (HTML attributes + CSS rules)
+  │   ├── _download_all()  ThreadPoolExecutor fan-out with progress
+  │   ├── _write_pages()   URL replacement, CSS fixing, inline/minify
+  │   └── _manifest()      JSON metadata export
+  │
+  ├── RoundedFrame         Canvas-drawn cards with shadows
+  ├── ProgressBar          Animated progress with value interpolation
+  ├── Console              Color-coded log (info / ok / err / warn)
+  ├── AssetTree            Live-updating treeview of downloads
+  │
+  └── ClonerApp            Full tkinter GUI
+      ├── _build()         Two-panel layout
+      ├── _poll()          Thread-safe queue dispatch (60ms tick)
+      ├── _start/_done     Clone lifecycle
+      └── _on_close()      Config serialization
+```
 
 ---
 
+<br>
+
 ##   FAQ
 
-<details open>
+<details>
 <summary><b>Is this legal?</b></summary>
 <br>
 
-Website Cloner is a tool, not an instruction. Respect copyright, terms of service, and robots.txt. Do not use it for phishing, impersonation, or passing off someone else's work as your own. It is intended for legitimate purposes: platform migration, offline reference, design research, and recovering your own lost source code.
+Website Cloner is a tool. Respect copyright, terms of service, and robots.txt. Don't use it for phishing, impersonation, or passing off others' work as your own. Intended for legitimate use: platform migration, offline reference, design research, recovering your own lost code.
 
 </details>
 
 <details>
-<summary><b>Does it execute JavaScript?</b></summary>
+<summary><b>Does it run JavaScript?</b></summary>
 <br>
 
-No. Website Cloner downloads HTML and static assets. It does not run JavaScript, does not render SPAs, and does not use a headless browser. For JavaScript-heavy sites, the output will contain the raw HTML and scripts but dynamic content won't be pre-rendered.
+No. It downloads static HTML and assets. JavaScript is not executed, SPAs are not pre-rendered, and there's no headless browser. For JS-heavy sites, the raw scripts will be present but dynamic content won't be pre-rendered.
 
 </details>
 
 <details>
-<summary><b>Can it clone authenticated pages?</b></summary>
+<summary><b>Will I get blocked?</b></summary>
 <br>
 
-Not directly through the GUI, but the source code supports custom cookies. Pass them via the `cookies` option in the `opts` dict if using the engine programmatically.
-
-</details>
-
-<details>
-<summary><b>What if a site blocks me?</b></summary>
-<br>
-
-Use the **Delay** setting to add cooldown between requests. Set a custom **User-Agent**. Use a **Proxy** to route through a different IP. Some sites use aggressive anti-bot measures (Cloudflare, Akamai) that may require additional tools.
+If a site has aggressive rate limiting, use the **Delay** setting (0.5s-2s), set a custom **User-Agent**, or route through a **Proxy**. Sites behind Cloudflare/Akamai may require additional tools.
 
 </details>
 
@@ -493,33 +417,13 @@ Use the **Delay** setting to add cooldown between requests. Set a custom **User-
 <summary><b>Mac / Linux support?</b></summary>
 <br>
 
-The `.exe` is Windows-only, but the source code runs on **macOS and Linux** with Python 3.9+. Use Option B in the Quick Start guide.
+The `.exe` is Windows-only, but the Python source runs on macOS and Linux with Python 3.9+. Use the "Run from Source" path above.
 
 </details>
 
-<br>
-
 ---
 
-##   Contributing
-
-Pull requests are welcome. For major changes, open an issue first.
-
-```bash
-git clone https://github.com/JamesCowx/website-cloner.git
-cd website-cloner
-pip install -r requirements.txt
-
-# Make your changes...
-python cloner.py          # Test the GUI
-python cloner.py https://example.com --headless   # Test CLI mode
-```
-
-> Keep the code simple. The entire project is a single file by design &mdash; `cloner.py`. No frameworks, no bundlers, no config files. Just Python + tkinter.
-
 <br>
-
----
 
 ##   Star History
 
@@ -529,16 +433,15 @@ python cloner.py https://example.com --headless   # Test CLI mode
   </a>
 </p>
 
-<br>
-
 ---
 
+<br>
+
 <p align="center">
-  <sub>
-    <b>Website Cloner</b> &mdash; Built with Python + Tkinter<br>
-    No API keys. No external services. No trackers.<br>
-    <a href="https://github.com/JamesCowx/website-cloner/blob/master/LICENSE">MIT License</a>
-  </sub>
+  <sub><b>Website Cloner</b> — 1 file, 3 dependencies, infinite offline websites.<br>
+  <a href="https://github.com/JamesCowx/website-cloner/blob/master/LICENSE">MIT</a> ·
+  <a href="https://github.com/JamesCowx/website-cloner/releases">Releases</a> ·
+  <a href="https://jamescowx.github.io/website-cloner/">Landing Page</a></sub>
 </p>
 
 <br>
