@@ -1,187 +1,253 @@
-# Website Cloner
-
-A production-ready desktop GUI application for cloning any website into a local static copy. Downloads HTML, CSS, JavaScript, images, fonts, videos, and rewrites all URLs for offline browsing.
-
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" alt="Python">
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey" alt="Platform">
+  <img src="https://img.shields.io/github/stars/JamesCowx/website-cloner?style=for-the-badge&color=6366f1" alt="Stars">
+  <img src="https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python&logoColor=white&color=3776AB" alt="Python">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge&color=22c55e" alt="License">
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=for-the-badge" alt="Platform">
 </p>
 
----
+<br>
 
-## How It Works
+<h1 align="center">
+  <code>[  Website Cloner  ]</code>
+</h1>
 
-The cloner runs a four-phase pipeline:
+<p align="center">
+  <b>Clone any website into a local static copy — with a full GUI.</b><br>
+  <sub>Downloads HTML, CSS, JS, images, fonts, and more. Rewrites all paths for offline browsing.</sub>
+</p>
 
-| Phase | Description |
-|---|---|
-| **1. Crawl** | Fetches the target URL. If multi-page crawling is enabled (depth > 1), it discovers and queues all same-domain `<a href>` links up to the configured depth. |
-| **2. Collect** | Parses every page with BeautifulSoup and extracts asset references from `<img>`, `<link>`, `<script>`, `<video>`, `<audio>`, `<source>`, `<iframe>`, `<embed>`, `<object>`, `srcset` attributes, and CSS `url()`/`@import` declarations. |
-| **3. Download** | All discovered assets are downloaded in parallel using a thread pool (configurable 1-20 workers). Progress, speed, and per-file status are streamed to the GUI in real time. |
-| **4. Rewrite** | Every asset URL in the HTML is replaced with a local relative path. CSS files have their `url()` references rewritten. Optional: inline CSS/JS directly into the HTML, or minify the output. |
-
-```
-GET https://example.com
-  |
-  +-> Parse HTML, find <img>, <link>, <script>...
-  +-> Parse CSS, find url() references, @import
-  +-> Discover same-domain links (if depth > 1)
-  |
-  Parallel download (8 threads default)
-  |  /assets/img/hero.png
-  |  /assets/css/style.css
-  |  /assets/js/app.js
-  |  /assets/fonts/Inter.woff2
-  |  ...
-  |
-  Rewrite all paths -> relative
-  Save index.html + manifest
-```
-
-### Output Structure
-
-```
-cloned_site/
-  index.html                  # Main page (URLs rewritten to local)
-  page/subpage.html           # Additional crawled pages
-  cloner_manifest.json        # Metadata: source URL, timestamps, asset map, errors
-  assets/
-    img/                      # Downloaded images
-    css/                      # Stylesheets (url() references rewritten)
-    js/                       # JavaScript files
-    fonts/                    # Web fonts (woff2, ttf, etc.)
-    videos/                   # Video files
-    audio/                    # Audio files
-    data/                     # JSON, XML, etc.
-    other/                    # Everything else
-```
+<br>
 
 ---
 
-## Quick Start
+##   Pipeline
 
-### Prerequisites
+```
+  USER INPUT                    ENGINE                          OUTPUT
+ ─────────────────────────────────────────────────────────────────────────
+                                                                   
+  https://example.com            . Crawl page                     
+       │                        │    Fetch HTML                    cloned_site/
+       ▼                        │    Discover links (depth)       ├── index.html
+  ┌─────────┐                   │                              ├── page/
+  │  CLONE  │ ──────────────►   │    . Collect assets            │   └── about.html
+  └─────────┘                   │    <img>  <script>              ├── assets/
+                                │    <link>  <video>             │   ├── img/
+                                │    url()  @import              │   ├── css/
+                                │                              │   ├── js/
+                                │    . Download (parallel)       │   ├── fonts/
+                                │    ThreadPoolExecutor           │   └── videos/
+                                │    8 workers default           │
+                                │                              └── cloner_manifest.json
+                                │    . Rewrite
+                                │    Replace all URLs →
+                                │    local relative paths
+                                │    Fix CSS url() refs
+```
 
-- **Python 3.9+**
-- **pip**
+<br>
 
-### 1. Clone
+##   Quick Start
 
 ```bash
+# 1. Clone
 git clone https://github.com/JamesCowx/website-cloner.git
 cd website-cloner
+
+# 2. Install
+pip install -r requirements.txt
+
+# 3. Launch
+python cloner.py          # GUI mode
+#  OR
+python cloner.py https://example.com --headless -o ./mysite   # CLI mode
 ```
 
-### 2. Install dependencies
+<table>
+<tr><td><b>Windows</b></td><td>Double-click <code>run.bat</code></td></tr>
+<tr><td><b>macOS / Linux</b></td><td><code>python cloner.py</code></td></tr>
+</table>
+
+<br>
+
+## ⌨️  Keyboard Shortcuts
+
+| Key | Action |
+|:---:|:---|
+| `Enter` | Start clone |
+| `Escape` | Cancel clone |
+| `Ctrl + V` | Paste URL from clipboard |
+| `Ctrl + L` | Focus URL field |
+
+<br>
+
+## ⚙️  Options
+
+### Content
+
+| Option | Default | Description |
+|:---|:---:|:---|
+| **Images** | On | Downloads `png`, `jpg`, `svg`, `webp`, `ico`, `gif`, `bmp` |
+| **CSS** | On | Downloads stylesheets & parses `url()` / `@import` references |
+| **JavaScript** | On | Downloads `<script src>` files |
+| **Fonts** | On | Downloads `woff2`, `ttf`, `otf`, `eot` |
+
+### Processing
+
+| Option | Default | Description |
+|:---|:---:|:---|
+| **Same domain** | On | Only download assets from the target domain |
+| **Strip params** | On | Remove `?v=1.2.3` query strings from asset URLs |
+| **Rewrite CSS** | On | Rewrite `url()` references in CSS to local paths |
+| **Minify HTML** | Off | Strip extra whitespace from output |
+| **Inline CSS** | Off | Embed stylesheets directly into `<style>` tags |
+| **Inline JS** | Off | Embed scripts directly into `<script>` tags |
+
+### Advanced
+
+| Setting | Default | Range | Description |
+|:---|:---:|:---:|:---|
+| **Depth** | 1 | 1-10 | How many levels of linked pages to crawl |
+| **Workers** | 8 | 1-20 | Concurrent download threads |
+| **Delay** | 0.1 s | 0-5 s | Wait between requests to avoid rate limiting |
+| **Timeout** | 30 s | 5-120 s | Per-request timeout |
+| **User-Agent** | Chrome 125 | any | Custom UA string |
+| **Proxy** | none | `host:port` | Route traffic through HTTP proxy |
+
+<br>
+
+##   Features
+
+<table>
+<tr>
+  <td width="50%">
+
+###   UI
+- Dark-themed polished GUI
+- Real-time progress bar with animation
+- Live stats dashboard (pages, assets, size, speed)
+- Asset tree with per-file status (OK / FAIL)
+- Color-coded console log
+- Collapsible advanced settings panel
+- Clickable recent-URL history
+
+  </td>
+  <td width="50%">
+
+###   Engine
+- Multi-threaded parallel downloads
+- Depth-controlled multi-page crawling
+- css `url()` & `@import` reference parsing
+- Full URL → local path rewriting
+- Rate limiting with configurable delay
+- Proxy support & custom User-Agent
+- Session persistence (remembers all settings)
+
+  </td>
+</tr>
+<tr>
+  <td width="50%">
+
+###   I/O
+- Export cloned site as ZIP
+- `cloner_manifest.json` with full metadata
+- CLI headless mode for scripting
+- Config saved to `%APPDATA%\WebsiteCloner\`
+- Input validation (URL format check)
+
+  </td>
+  <td width="50%">
+
+###   Output
+```
+cloned_site/
+  index.html
+  page/subpage.html
+  cloner_manifest.json
+  assets/
+    img/      # Downloaded images
+    css/      # Stylesheets (url paths rewritten)
+    js/       # JavaScript files
+    fonts/    # Web fonts
+    videos/   # Video files
+    audio/    # Audio files
+    other/    # Everything else
+```
+
+  </td>
+</tr>
+</table>
+
+<br>
+
+##   Command-Line Mode
+
+```bash
+# Basic: clone a single page
+python cloner.py https://example.com --headless
+
+# With output directory and crawl depth
+python cloner.py https://example.com --headless -o ./myclone -d 3
+
+# All flags
+python cloner.py <url> [--headless] [--output <dir>] [--depth <n>]
+```
+
+| Flag | Alias | Description |
+|:---|:---|:---|
+| `--headless` | `-h` | Run without opening the GUI |
+| `--output <dir>` | `-o` | Output directory path |
+| `--depth <n>` | `-d` | Crawl depth for linked pages |
+
+<br>
+
+##   Architecture
+
+```
+cloner.py
+  │
+  ├── WebsiteCloner           # Cloning engine
+  │   ├── clone()             #   Main entry point
+  │   ├── _collect()          #   Asset discovery (HTML + CSS)
+  │   ├── _download_all()     #   ThreadPoolExecutor fan-out
+  │   ├── _write_pages()      #   URL rewriting + CSS fixing
+  │   └── _manifest()         #   Metadata export
+  │
+  ├── RoundedFrame            #   Canvas-based card with shadow
+  ├── ProgressBar             #   Animated progress with interpolation
+  ├── Console                 #   Color-coded log (info/ok/err/warn)
+  ├── AssetTree               #   Live treeview of downloaded files
+  │
+  └── ClonerApp               #   Tkinter GUI
+      ├── _build()            #     Layout construction
+      ├── _start() / _done()  #     Clone lifecycle
+      ├── _poll()             #     Thread-safe queue → UI
+      ├── _on_close()         #     Config persistence
+      └── _bind_keys()        #     Keyboard shortcuts
+```
+
+<br>
+
+##   Dependencies
+
+| Package | Version | Purpose |
+|:---|:---|:---|
+| `requests` | >=2.31 | HTTP client with session + streaming |
+| `beautifulsoup4` | >=4.12 | HTML parser |
+| `tkinter` | bundled | GUI toolkit (included with Python) |
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Launch
+<br>
 
-```bash
-python cloner.py
-```
+##   License
 
-Or on Windows, double-click **`run.bat`**.
-
-### 4. Use
-
-1. Paste a URL (or press `Ctrl+V`)
-2. Pick an output directory with **...**
-3. Toggle options as needed
-4. Press **CLONE** (or hit `Enter`)
-5. Watch progress in real time
-6. Click **Open Site** to view the result
+MIT © 2026
 
 ---
 
-## Command-Line Mode
-
-Run headlessly from a terminal or script:
-
-```bash
-python cloner.py https://example.com --headless -o ./mysite -d 2
-```
-
-| Flag | Description |
-|---|---|
-| `--headless`, `-h` | Run without GUI |
-| `--output`, `-o <dir>` | Output directory (default: `./cloned_site`) |
-| `--depth`, `-d <n>` | Crawl depth for linked pages (default: 1) |
-
----
-
-## Options
-
-| Option | Default | Description |
-|---|---|---|
-| Images | On | Download `<img>` assets (png, jpg, svg, webp, etc.) |
-| CSS | On | Download stylesheets |
-| JavaScript | On | Download `<script src>` files |
-| Fonts | On | Download web fonts (woff2, ttf, otf) |
-| Same domain | On | Only download assets and links from the target domain |
-| Strip params | On | Remove query strings from asset URLs |
-| Rewrite CSS | On | Rewrite `url()` references in CSS to local paths |
-| Minify HTML | Off | Strip extra whitespace from output |
-| Inline CSS | Off | Embed CSS directly into HTML `<style>` tags |
-| Inline JS | Off | Embed JS directly into HTML `<script>` tags |
-
-### Advanced
-
-| Setting | Default | Description |
-|---|---|---|
-| Depth | 1 | How many levels of linked pages to crawl |
-| Workers | 8 | Number of parallel download threads |
-| Delay (s) | 0.1 | Wait between requests to avoid rate limiting |
-| Timeout (s) | 30 | HTTP request timeout per asset |
-| User-Agent | (Chrome) | Custom UA string (blank = default) |
-| Proxy | (none) | HTTP/HTTPS proxy address |
-
----
-
-## Keyboard Shortcuts
-
-| Key | Action |
-|---|---|
-| `Enter` | Start clone |
-| `Escape` | Cancel clone |
-| `Ctrl+V` | Paste URL from clipboard |
-| `Ctrl+L` | Focus URL field |
-
----
-
-## Features
-
-- Full dark-themed GUI with real-time stats and progress
-- Multi-threaded asset downloading (configurable concurrency)
-- Multi-page crawling with depth control
-- URL rewriting for offline browsing
-- CSS `url()` and `@import` parsing and rewriting
-- Export cloned site as ZIP
-- Session persistence — remembers settings, window size, and recent URLs
-- Validate URLs before cloning
-- Rate limiting with configurable request delay
-- Proxy support
-- Custom User-Agent
-- Asset tree with per-file status (OK / FAIL)
-- Color-coded console log
-- Manifest file with full metadata and error tracking
-
----
-
-## Dependencies
-
-| Package | Purpose |
-|---|---|
-| `requests` | HTTP client with session support |
-| `beautifulsoup4` | HTML parser |
-| `tkinter` | GUI toolkit (bundled with Python) |
-
----
-
-## License
-
-MIT
+<p align="center">
+  <sub>Built with Python + Tkinter • No external GUI frameworks • No API keys needed</sub>
+</p>
